@@ -11,7 +11,15 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@hashgraph/sdk": "^2.75.0",
+    "@langchain/groq": "^1.0.0",
+    "@langchain/langgraph": "^1.0.1",
     "@supabase/supabase-js": "^2.57.4",
+    "dotenv": "^17.2.3",
+    "hedera-agent-kit": "^3.4.0",
+    "langchain": "^1.0.1",
+    "langsmith": "^0.3.74",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -31,5 +39,18 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"
-  }
+  },
+  "description": "> **Reduce 44% post-harvest food waste in Kenya using AI + Hedera + simulated IoT**  \r > Built for **Hedera Africa Hackathon** — Track: 🤖 AI & DePIN",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanwachira-bit/-WasteNotAfrica.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luanwachira-bit/-WasteNotAfrica/issues"
+  },
+  "homepage": "https://github.com/luanwachira-bit/-WasteNotAfrica#readme"
 }

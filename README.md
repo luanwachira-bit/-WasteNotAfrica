@@ -5,7 +5,7 @@
 
 ## ✨ Key Features
 - **Farmer Dashboard**: Real-time spoilage alerts via WhatsApp-friendly UI
-- **AI Advisor**: Swahili/English tips based on humidity/temp (e.g., *"Hamisha matomato kwenye kivuli!"*)
+- **AI Advisor**: English tips based on humidity/temp (e.g., *"Hamisha matomato kwenye kivuli!"*)
 - **Hedera Integration**: Immutable sensor logs + WASTE token rewards
 - **Offline-First**: Works on 2G, low-literacy, basic smartphones
 
@@ -23,3 +23,7 @@
 ## 🏆 Submission
 - **Track**: AI & DePIN
 - **Cross-Track**: DLT for Operations, RWA Finance
+
+git add .
+git commit -m "A short description of the changes I just made"
+git push

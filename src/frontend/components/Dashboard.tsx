@@ -1,9 +1,47 @@
 import { Thermometer, Droplets, Sprout, Gauge, MessageCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import SensorCard from './SensorCard';
 import AlertBox from './AlertBox';
 import RewardsSection from './RewardsSection';
 
+interface SensorData {
+  temperature: number;
+  humidity: number;
+  timestamp: string;
+}
+
+interface WebSocketMessage {
+  sensor_data: SensorData;
+  alert: string;
+  reward_tokens: number;
+}
+
 export default function Dashboard() {
+  const [sensorData, setSensorData] = useState<SensorData>({
+    temperature: 0,
+    humidity: 0,
+    timestamp: new Date().toISOString()
+  });
+  const [alert, setAlert] = useState<string>('');
+  const [tokens, setTokens] = useState<number>(0);
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws');
+
+    ws.onmessage = (event) => {
+      const data: WebSocketMessage = JSON.parse(event.data);
+      setSensorData(data.sensor_data);
+      setAlert(data.alert);
+      if (data.reward_tokens > 0) {
+        setTokens(prev => prev + data.reward_tokens);
+      }
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   const handleRedeem = () => {
     alert('Redeem functionality coming soon!');
   };
@@ -29,29 +67,29 @@ export default function Dashboard() {
           <div className="grid grid-cols-2 gap-4">
             <SensorCard
               title="Temperature"
-              value="28"
+              value={sensorData.temperature.toString()}
               unit="°C"
               icon={Thermometer}
               color="bg-gradient-to-br from-orange-400 to-red-500"
             />
             <SensorCard
               title="Humidity"
-              value="75"
+              value={sensorData.humidity.toString()}
               unit="%"
               icon={Droplets}
               color="bg-gradient-to-br from-red-500 to-red-600"
-              isWarning={true}
+              isWarning={sensorData.humidity > 70}
             />
             <SensorCard
               title="Soil Moisture"
-              value="45"
+              value="45" // TODO: Add soil moisture sensor
               unit="%"
               icon={Sprout}
               color="bg-gradient-to-br from-farm-green-400 to-farm-green-600"
             />
             <SensorCard
               title="Waste Score"
-              value="72"
+              value={(sensorData.humidity > 70 ? 72 : 25).toString()}
               unit="/100"
               icon={Gauge}
               color="bg-gradient-to-br from-purple-400 to-purple-600"
@@ -63,14 +101,14 @@ export default function Dashboard() {
           <h2 className="text-earth-brown-800 font-bold text-xl mb-5 px-1 flex items-center gap-2">
             <span className="text-2xl">🤖</span> Ushauri wa AI
           </h2>
-          <AlertBox message="Habari! Humidity yako ni juu. Hamisha matomato yako kwenye kivuli kwa muda wa saa 24!" isHighPriority={true} />
+          <AlertBox message={alert} isHighPriority={sensorData.humidity > 70} />
         </section>
 
         <section>
           <h2 className="text-earth-brown-800 font-bold text-xl mb-5 px-1 flex items-center gap-2">
             <span className="text-2xl">🎁</span> Tuzo Yako
           </h2>
-          <RewardsSection tokens={10} onRedeem={handleRedeem} />
+          <RewardsSection tokens={tokens} onRedeem={handleRedeem} />
         </section>
 
         <footer className="pt-6 pb-8">

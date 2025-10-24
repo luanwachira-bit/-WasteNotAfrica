@@ -1,14 +1,19 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "wastenot-africa",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "compile": "node scripts/compile-contracts.mjs",
+    "deploy": "node scripts/deploy-contracts.mjs",
+    "test": "pytest tests/ -v",
+    "test:contracts": "pytest tests/test_contracts.py -v",
+    "test:backend": "pytest tests/test_backend.py -v"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -16,13 +21,17 @@
     "@langchain/groq": "^1.0.0",
     "@langchain/langgraph": "^1.0.1",
     "@supabase/supabase-js": "^2.57.4",
+    "@openzeppelin/contracts": "^5.0.1",
+    "@hedera/hethers": "^0.8.0",
     "dotenv": "^17.2.3",
+    "ethers": "^6.11.1",
     "hedera-agent-kit": "^3.4.0",
     "langchain": "^1.0.1",
     "langsmith": "^0.3.74",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "solc": "^0.8.24"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
